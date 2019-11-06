@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <a href="">www</a>
+
+    <script id="www">
+        onmessage = function (x) {
+            console.log(x);
+            const { data } = x;
+            postMessage({ ...data, w: 99 });
+        }
+
+    </script>
+    <script>
+
+        const _URL = window.webkitURL || window.URL;
+        var f = _URL.createObjectURL(new Blob([document.getElementById("www").innerText], { type: 'text/javascript' }))
+        document.querySelector("a").href = f;
+        console.log(f);
+        var w = new Worker(f);
+        w.postMessage({ h: 234 });
+        w.onmessage = function (e) {
+            console.log(e);
+        }
+
+    </script>
+</body>
+
+</html>
