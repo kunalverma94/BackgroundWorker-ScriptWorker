@@ -1,4 +1,4 @@
-const key = 'v50112'
+const key = 'v50112441234'
 // const fl=[
 //     './offline/a.html',
 //     './offline/b.html',
@@ -22,8 +22,10 @@ self.addEventListener('activate', e => {
   )
 })
 self.addEventListener('fetch', e => {
-  e.respondWith(
-    fetch(e.request)
+  e.respondWith(caches.match(e.request).then(cc=>
+    {
+
+    return cc||   fetch(e.request)
       .then(r => {
         console.log('fetch caching')
         const rc = r.clone()
@@ -44,6 +46,8 @@ self.addEventListener('fetch', e => {
         console.log(123, ee)
         return caches.match(e.request).then(r => r)
       })
-  )
+  
+
+    }))
   console.log('activate')
 })
